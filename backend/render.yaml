@@ -1,15 +1,17 @@
 services:
   - type: web
     name: lightit-backend
-    env: node
+    runtime: node
     plan: free
     branch: main
+    rootDir: backend
     buildCommand: npm install
     startCommand: npm start
+    autoDeploy: true
     envVars:
       - key: MONGO_URI
-        value: YOUR_MONGO_URI
+        value: your-mongo-uri
       - key: JWT_SECRET
-        value: YOUR_SECRET_KEY
+        value: your-secret
       - key: NODE_ENV
         value: production
