@@ -16,14 +16,26 @@ services:
       - key: NODE_ENV
         value: production
 
+  # - type: web
+  #   name: lightit-frontend
+  #   runtime: node
+  #   plan: free
+  #   branch: main
+  #   rootDir: frontend
+  #   buildCommand: npm install && npm run build
+  #   startCommand: npx serve -s build
+  #   autoDeploy: true
+  #   envVars:
+  #     - key: REACT_APP_API_URL
+  #       value: https://lightit-backend.onrender.com
+
   - type: web
     name: lightit-frontend
-    runtime: node
-    plan: free
-    branch: main
+    env: static
     rootDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npx serve -s build
+    branch: main
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    staticPublishPath: build
     autoDeploy: true
     envVars:
       - key: REACT_APP_API_URL
