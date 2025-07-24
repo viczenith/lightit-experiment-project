@@ -10,8 +10,8 @@ services:
     autoDeploy: true
     envVars:
       - key: MONGO_URI
-        value: your-mongo-uri
+        value: mongodb+srv://akorvikkyy:hreYwhUbcReXBF2d@cluster0.mbvxjel.mongodb.net/lightitdb?retryWrites=true&w=majority
       - key: JWT_SECRET
-        value: your-secret
+        value: 9f1c4b1e2a3c4d5e6f7a8b9c0d1e2f3a
       - key: NODE_ENV
         value: production
