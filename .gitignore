@@ -1,0 +1,12 @@
+# Ignore node_modules everywhere
+**/node_modules/
+
+# Build files
+/client/build/
+/dist
+
+# Environment files
+*.env
+
+# Logs
+*.log
