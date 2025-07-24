@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: lightit-frontend
+    env: static
+    plan: free
+    branch: main
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: true
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://lightit-backend.onrender.com
