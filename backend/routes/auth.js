@@ -24,22 +24,55 @@ router.post('/register', async (req, res) => {
 });
 
 // Login (works as‑is)
+// router.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user || !(await user.matchPassword(password))) {
+//       return res.status(401).json({ message: 'Invalid credentials' });
+//     }
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: process.env.TOKEN_EXPIRES_IN
+//     });
+//     res.json({ token, user: { id: user._id, name: user.name, email, role: user.role } });
+//   } catch (err) {
+//     console.error('POST /api/auth/login error:', err);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user || !(await user.matchPassword(password))) {
+    console.log('User found:', user);
+
+    if (!user) {
+      console.log('No user with that email');
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+
+    const isMatch = await user.matchPassword(password);
+    console.log('Password match:', isMatch);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRES_IN
     });
-    res.json({ token, user: { id: user._id, name: user.name, email, role: user.role } });
+
+    res.json({
+      token,
+      user: { id: user._id, name: user.name, email, role: user.role }
+    });
   } catch (err) {
-    console.error('POST /api/auth/login error:', err);
+    console.error('POST /api/auth/login error:', err.message, err.stack);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // — Admin only: list all users
 router.get('/users', protect, authorize('admin'), async (req, res) => {
