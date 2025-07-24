@@ -2,7 +2,7 @@ services:
   - type: web
     name: lightit-backend
     runtime: node
-    plan: free
+    plan: starter
     branch: main
     rootDir: backend
     buildCommand: npm install
@@ -19,7 +19,7 @@ services:
   - type: web
     name: lightit-frontend
     runtime: node
-    plan: free
+    plan: starter
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build

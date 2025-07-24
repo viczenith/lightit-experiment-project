@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express    = require('express');
 const Experiment = require('../models/Experiment');
 const { protect, authorize } = require('../middleware/auth');
